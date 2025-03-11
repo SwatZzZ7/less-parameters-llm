@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite para Micheli</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8e1e8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            position: relative;
+            z-index: 1;
+        }
+        .mensagem {
+            font-size: 24px;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+        .botoes {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 15px 50px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            font-weight: bold;
+        }
+        .btn-sim {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-nao {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        .coracao {
+            position: absolute;
+            color: #ff6b81;
+            opacity: 0.6;
+            animation: float 5s infinite ease-in-out;
+            z-index: 0;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .modal-btn {
+            margin-top: 20px;
+            padding: 10px 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .nome {
+            color: #e84a7f;
+            font-weight: bold;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="mensagem">
+            <span class="nome">Micheli</span>, gostaria de sair comigo sexta? ❤️
+        </div>
+        <div class="botoes">
+            <button class="btn btn-sim" id="btnSim">Sim</button>
+            <button class="btn btn-nao" id="btnNao">Não</button>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2>Ops!</h2>
+            <p>Essa não é a resposta correta! 😉</p>
+            <p>Tente novamente...</p>
+            <button class="modal-btn" id="btnFechar">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // Adiciona corações flutuantes no fundo
+        function criarCoracoes() {
+            for (let i = 0; i < 20; i++) {
+                const coracao = document.createElement('div');
+                coracao.className = 'coracao';
+                coracao.innerHTML = '❤️';
+                coracao.style.fontSize = Math.random() * 20 + 10 + 'px';
+                coracao.style.left = Math.random() * 100 + 'vw';
+                coracao.style.top = Math.random() * 100 + 'vh';
+                coracao.style.animationDuration = Math.random() * 3 + 2 + 's';
+                coracao.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(coracao);
+            }
+        }
+
+        // Função para botão "Não" - mostra o modal
+        document.getElementById('btnNao').addEventListener('click', function() {
+            document.getElementById('modal').style.display = 'flex';
+        });
+
+        // Função para fechar o modal
+        document.getElementById('btnFechar').addEventListener('click', function() {
+            document.getElementById('modal').style.display = 'none';
+        });
+
+        // Função para botão "Sim" - redireciona para o YouTube
+        document.getElementById('btnSim').addEventListener('click', function() {
+            window.location.href = 'https://www.youtube.com/shorts/O4d70SaQKeE';
+        });
+
+        // Faz o botão "Não" fugir do mouse
+        document.getElementById('btnNao').addEventListener('mouseover', function(e) {
+            const btnNao = this;
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            
+            // Calcula nova posição aleatória dentro do container
+            const newX = Math.random() * (containerRect.width - btnNao.offsetWidth - 40) + 20;
+            const newY = Math.random() * (containerRect.height - btnNao.offsetHeight - 40) + 20;
+            
+            btnNao.style.position = 'absolute';
+            btnNao.style.left = newX + 'px';
+            btnNao.style.top = newY + 'px';
+        });
+
+        // Cria corações quando a página carrega
+        window.onload = criarCoracoes;
+    </script>
+</body>
+</html>
